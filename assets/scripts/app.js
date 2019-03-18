@@ -1,0 +1,1 @@
+const somevar = "  apple";
