@@ -9,11 +9,7 @@ const addButtonElement = cancelButtonElement.nextElementSibling;
 const allInputElement = document.querySelectorAll("input");
 const displayMovieUi = document.getElementById("entry-text");
 const deleteDialogModal = document.getElementById("delete-modal");
-const noDelete =
-    document.querySelector("#delete-modal").lastElementChild.firstElementChild;
-const yesDelete = noDelete.nextElementSibling;
 
-console.log(yesDelete);
 function toggleMovieModal() {
     addMovieModal.classList.toggle("visible");
     addbackdrop();
@@ -38,8 +34,7 @@ const renderNewMovieElement = (id, tit, imgUrl, rat) => {
     let newMovieElement = document.createElement("li");
     newMovieElement.className = "movie-element";
     newMovieElement.innerHTML = `
-
-        <div id="${id}">
+        <div>
             <img src="${imgUrl}" style="width:250px; height: 180px; border-radius:7px" alt = "${tit}">
         </div>
         <div>
@@ -50,22 +45,15 @@ const renderNewMovieElement = (id, tit, imgUrl, rat) => {
 
     const movieUi = document.getElementById("movie-list");
     movieUi.append(newMovieElement);
-    newMovieElement.addEventListener("click", confirmDeleteModalDialog);
-    yesDelete.addEventListener(
+    newMovieElement.addEventListener(
         "click",
-        deleteMovieHandler.bind(null, id),
-        deleteDialogModal.classList.remove("visible")
+        deleteMovieHandler.bind(null, id)
     );
 };
 
 const confirmDeleteModalDialog = () => {
     deleteDialogModal.classList.add("visible");
 };
-
-const RemoveDeleteModalDialog = () => {
-    deleteDialogModal.classList.remove("visible");
-};
-noDelete.addEventListener("click", RemoveDeleteModalDialog);
 
 const movie = [];
 
