@@ -3,7 +3,6 @@ const addMovieModal = document.getElementById("add-modal");
 const movieButton = document.querySelector("header").lastElementChild;
 
 const backdropElement = document.body.firstElementChild;
-
 const cancelButtonElement = addMovieModal.querySelector(".btn--passive");
 const addButtonElement = cancelButtonElement.nextElementSibling;
 const allInputElement = document.querySelectorAll("input");
@@ -12,8 +11,9 @@ const deleteDialogModal = document.getElementById("delete-modal");
 const noDelete =
     document.querySelector("#delete-modal").lastElementChild.firstElementChild;
 const yesDelete = noDelete.nextElementSibling;
+const movieListUi = document.getElementById("movie-llist");
+const searchBtn = document.getElementById("search-btn");
 
-console.log(yesDelete);
 function toggleMovieModal() {
     addMovieModal.classList.toggle("visible");
     addbackdrop();
@@ -128,7 +128,26 @@ const deleteMovieHandler = (movieId) => {
     movieUi.children[movieIndex].remove();
 };
 
+const searchMovieHandler = () => {
+    const filterWord = document.getElementById("filter-title").value;
+    showFilteredMovie(filterWord);
+};
+
+const showFilteredMovie = (filter) => {
+    console.log("Movie Lenth", movie.length);
+    const filteredMovies = !filter //filterteredMovies is actually what filter is(null never runs)
+        ? null
+        : movie.filter((mov) => mov.title.includes(filter));
+    filteredMovies.forEach((movi) => {
+        const movieEl = document.createElement("li");
+        movieEl.textContent = movi.title;
+        movieListUi.append(movieEl);
+    });
+};
+
 movieButton.addEventListener("click", toggleMovieModal);
 backdropElement.addEventListener("click", toggleMovieModal);
 cancelButtonElement.addEventListener("click", toggleMovieModal);
 addButtonElement.addEventListener("click", addMovieHandler);
+
+searchBtn.addEventListener("click", searchMovieHandler);
